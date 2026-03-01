@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SVE-ASCII | Project Page</title>
+
+  <!-- Optional favicon -->
+  <!-- <link rel="icon" href="assets/favicon.png" /> -->
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --panel:#fbfbfc;
+      --panel2:#ffffff;
+      --text:#0b1220;
+      --muted:#667085;
+      --border:#e6e8ee;
+
+      --shadow: 0 16px 40px rgba(11,18,32,.08);
+      --shadow2: 0 10px 24px rgba(11,18,32,.08);
+
+      --primary:#0b1220;
+      --accent:#2563eb;
+      --accent2:#1d4ed8;
+      --chip:#eef2ff;
+
+      --codebg:#0b1020;
+      --codetxt:#e5e7eb;
+
+      --radius:16px;
+      --radius2:14px;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{ color:var(--accent); text-decoration:none; }
+    a:hover{ color:var(--accent2); }
+
+    /* Sticky top nav */
+    .nav{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,.85);
+      border-bottom: 1px solid rgba(230,232,238,.8);
+    }
+    .nav-inner{
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight: 900;
+      letter-spacing: .2px;
+    }
+    .brand-dot{
+      width:10px;height:10px;border-radius:99px;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(37,99,235,.12);
+    }
+    .nav-links{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      font-weight:700;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .nav-links a{
+      color:var(--muted);
+      padding:6px 10px;
+      border-radius:12px;
+    }
+    .nav-links a:hover{
+      background: rgba(37,99,235,.08);
+      color: var(--text);
+    }
+
+    .wrap{
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 26px 18px 90px;
+    }
+
+    /* Hero */
+    .hero{
+      padding: 22px 0 6px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1fr; /* ✅ force single column */
+      gap: 18px;
+      align-items: start;
+      margin-top: 14px;
+    }
+
+    .chips{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin: 6px 0 14px;
+    }
+    .chip{
+      background: var(--chip);
+      border: 1px solid rgba(99,102,241,.15);
+      color: #1f2a6b;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight:800;
+    }
+
+    .title{
+      font-size: 34px;
+      line-height:1.12;
+      margin: 8px 0 10px;
+      letter-spacing: -.5px;
+    }
+    .subtitle{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 720px;
+    }
+
+    .btns{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+    .btn{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border:1px solid var(--border);
+      background: #fff;
+      box-shadow: var(--shadow2);
+      color: var(--text);
+      font-weight:900;
+      font-size:14px;
+      transition: transform .08s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(37,99,235,.35);
+      box-shadow: 0 14px 32px rgba(37,99,235,.12);
+      color: var(--text);
+    }
+    .btn.primary{
+      background: var(--primary);
+      color: #fff;
+      border-color: rgba(11,18,32,.92);
+    }
+    .btn.primary:hover{
+      box-shadow: 0 18px 44px rgba(11,18,32,.22);
+      border-color: rgba(11,18,32,1);
+      color:#fff;
+    }
+    .btn .tag{
+      margin-left: 2px;
+      font-size: 12px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(37,99,235,.10);
+      border: 1px solid rgba(37,99,235,.18);
+      color: var(--accent2);
+    }
+    .btn.primary .tag{
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.18);
+      color: #fff;
+    }
+
+    /* Cards / panels */
+    .panel{
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+    .panel2{
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow2);
+    }
+
+    /* Teaser */
+    .teaser{
+      overflow:hidden;
+    }
+    .teaser img{
+      width:100%;
+      display:block;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(230,232,238,.95);
+      background:#fff;
+      cursor: zoom-in;
+    }
+    .cap{
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--muted);
+      text-align:left;
+    }
+
+    /* ✅ Full-width teaser under hero text */
+    .teaser-full{
+      margin-top: 16px;
+    }
+    .teaser-full img{
+      width:100%;
+      display:block;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(230,232,238,.95);
+      background:#fff;
+      cursor: zoom-in;
+    }
+
+    /* Key links card */
+    .keylinks{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .krow{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border:1px solid var(--border);
+      background:#fff;
+      box-shadow: var(--shadow2);
+    }
+    .kleft{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      font-weight: 900;
+    }
+    .kicon{
+      width: 34px; height: 34px;
+      border-radius: 12px;
+      display:grid;
+      place-items:center;
+      background: rgba(37,99,235,.10);
+      border: 1px solid rgba(37,99,235,.18);
+      font-size: 16px;
+    }
+    .kmeta{
+      text-align:left;
+      line-height:1.2;
+    }
+    .kmeta .small{
+      display:block;
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+    .kbtn{
+      font-weight: 900;
+      padding: 7px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(37,99,235,.20);
+      background: rgba(37,99,235,.08);
+      color: var(--accent2);
+      white-space:nowrap;
+    }
+    .kbtn:hover{
+      background: rgba(37,99,235,.12);
+      color: var(--accent2);
+    }
+
+    /* Sections */
+    .section{
+      margin-top: 54px;
+    }
+    .h2{
+      font-size: 22px;
+      margin: 0 0 12px;
+      letter-spacing: -.2px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      justify-content:center;
+    }
+    .h2 .bar{
+      width: 18px; height: 18px; border-radius: 7px;
+      background: rgba(37,99,235,.15);
+      border: 1px solid rgba(37,99,235,.25);
+    }
+    .subtext{
+      max-width: 840px;
+      margin: 0 auto 18px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .img-card img{
+      width:100%;
+      display:block;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(230,232,238,.95);
+      background:#fff;
+      cursor: zoom-in;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    @media (max-width: 900px){
+      .grid-2{ grid-template-columns: 1fr; }
+    }
+
+    /* Benchmark section: equal-height left/right panels */
+    .benchmark-grid{
+      align-items: stretch;
+    }
+    .benchmark-grid .panel{
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+    }
+    .benchmark-grid .panel pre{
+      flex: 1;
+      min-height: 0;
+    }
+    .benchmark-grid .img-card img{
+      width: 100%;
+      height: auto;
+      max-height: 320px;
+      object-fit: contain;
+      object-position: top center;
+    }
+
+    .resources-grid{
+      align-items: stretch;
+      grid-template-columns: 1fr 1fr;
+    }
+    .resources-grid .panel,
+    .resources-grid .panel2{
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+    }
+    .resources-grid .keylinks{
+      flex: 1;
+    }
+    .resources-grid .panel details,
+    .resources-grid .panel pre{
+      flex: 1;
+      min-height: 0;
+    }
+
+    pre{
+      margin: 0;
+      overflow:auto;
+      padding: 14px;
+      border-radius: 14px;
+      background: var(--codebg);
+      color: var(--codetxt);
+      border: 1px solid rgba(255,255,255,.08);
+      text-align:left;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    details{
+      text-align:left;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: var(--shadow2);
+      padding: 12px 12px 10px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight: 900;
+      color: var(--text);
+      list-style:none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    .note{
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    /* Footer */
+    .footer{
+      margin-top: 70px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      text-align:center;
+    }
+    .footer strong{ color: var(--text); }
+
+    /* Back to top */
+    .to-top{
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.92);
+      box-shadow: var(--shadow2);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity .15s ease, transform .15s ease;
+      z-index: 80;
+    }
+    .to-top.show{
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .to-top:hover{
+      border-color: rgba(37,99,235,.35);
+      background: #fff;
+    }
+
+    /* Lightbox */
+    .lightbox{
+      position: fixed;
+      inset: 0;
+      background: rgba(11,18,32,.76);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index: 100;
+      padding: 18px;
+    }
+    .lightbox.show{ display:flex; }
+    .lightbox img{
+      max-width: min(1200px, 96vw);
+      max-height: 90vh;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 18px 70px rgba(0,0,0,.35);
+      background:#fff;
+    }
+    .lightbox .hint{
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.35);
+      color: rgba(255,255,255,.92);
+      font-weight: 800;
+      font-size: 13px;
+      user-select:none;
+    }
+    /* ===== Fix: Resources too wide (citation should not span full width) ===== */
+
+/* ===== Make Resources look less "too wide" ===== */
+
+/* Resources: keep 2 columns but prevent right panel from stretching too much */
+    .resources-grid{
+        grid-template-columns: 1fr 1fr;  /* ← 左右等宽 */
+        align-items: start;
+    }
+    
+    /* ✅ 关键：右侧 citation panel 不要铺满整列，限制宽度并靠左 */
+    #citation{
+        max-width: 720px;
+        width: 100%;
+        justify-self: start;     /* 不拉伸到整列宽 */
+    }
+    
+    /* 右侧外层 panel 视觉更紧凑一些 */
+    #citation.panel{
+        padding: 16px;
+    }
+    
+    /* 把“Citation / BibTeX”两行更像同一组标题（减弱空旷） */
+    #citation > div:first-child{
+        margin-bottom: 6px !important;
+    }
+    
+    /* 让 pre 不要显得像漂浮的小黑框：填满右侧 panel 宽度 */
+    #citation pre{
+        width: 100%;
+        border-radius: 16px;
+    }
+    
+    /* 去掉 details 的内层卡片感（避免套娃） */
+    #citation details{
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+    }
+    
+    /* Links 侧栏更协调：减少每行的“厚重感” */
+    .resources-grid .krow{
+        box-shadow: none;
+        background: rgba(255,255,255,.9);
+    }
+    
+    /* 小屏自动一列（不挤） */
+    @media (max-width: 900px){
+        .resources-grid{
+        grid-template-columns: 1fr;
+        }
+        #citation{
+        max-width: 100%;
+        justify-self: stretch;
+        }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span>SVE-ASCII</span>
+      </div>
+      <div class="nav-links">
+        <a href="#teaser">Teaser</a>
+        <a href="#results">Results</a>
+        <a href="#benchmark">Benchmark</a>
+        <a href="#resources">Resources</a>
+        <a href="#citation">Citation</a>
+        <a href="https://github.com/your-org/SVE-ASCII" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip">ASCII Generation</span>
+            <span class="chip">Understanding</span>
+            <span class="chip">Benchmark</span>
+          </div>
+
+          <h1 class="title">Unlocking the Latent Canvas: Eliciting and Benchmarking Symbolic Visual Expression in LLMs</h1>
+
+          <p class="subtitle">
+            We introduce <strong>SVE-ASCII</strong>: an open 7B model (<strong>SVE-ASCII-7B</strong>),
+            a reproducible dataset, and a standardized benchmark for symbolic visual expression via ASCII art.
+          </p>
+
+          <div class="btns">
+            <a class="btn primary" href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank" rel="noopener">
+              📄 Paper <span class="tag">arXiv</span>
+            </a>
+            <a class="btn" href="https://github.com/SVE-ASCII/SVE-ASCII" target="_blank" rel="noopener">
+              💻 Code <span class="tag">GitHub</span>
+            </a>
+            <a class="btn" href="https://huggingface.co/SVE-ASCII/SVE-ASCII-7B" target="_blank" rel="noopener">
+              🤗 Model <span class="tag">HF</span>
+            </a>
+            <a class="btn" href="https://huggingface.co/SVE-ASCII/SVE-ASCII-Dataset" target="_blank" rel="noopener">
+              📚 Dataset <span class="tag">HF</span>
+            </a>
+            <a class="btn" href="https://huggingface.co/SVE-ASCII/SVE-ASCII-Bench" target="_blank" rel="noopener">
+              📊 Benchmark <span class="tag">HF</span>
+            </a>
+          </div>
+
+          <div class="panel2">
+            <div style="text-align:left; font-weight: 950; margin-bottom: 8px;">What is released?</div>
+            <div class="note" style="text-align:left; margin:0;">
+              <strong>Model:</strong> SVE-ASCII-7B · <strong>Dataset:</strong> SVE-ASCII-Dataset ·
+              <strong>Benchmark:</strong> SVE-ASCII-Bench (Generation + Understanding)
+            </div>
+          </div>
+
+          <p class="note">
+            Prefer details? See the <a href="https://github.com/your-org/SVE-ASCII" target="_blank" rel="noopener">GitHub README</a>.
+          </p>
+        </div>
+      </div>
+
+      <!-- ✅ Teaser moved OUTSIDE hero-grid to become full-width below -->
+      <div class="panel teaser-full" id="teaser">
+        <img src="assets/sve-ascii-teaser.png" alt="SVE-ASCII Teaser" class="zoomable" />
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="section" id="results">
+      <div class="h2"><span class="bar"></span>Qualitative Results</div>
+
+      <div class="panel img-card">
+        <img src="assets/more_results1.png" alt="Qualitative results" class="zoomable" />
+      </div>
+      <div class="panel img-card">
+        <img src="assets/more_results2.png" alt="Qualitative results" class="zoomable" />
+      </div>
+    </section>
+
+    <!-- BENCHMARK -->
+    <section class="section" id="benchmark">
+      <div class="h2"><span class="bar"></span>SVE-ASCII Benchmark</div>
+      <p class="subtext">
+        SVE-ASCII-Bench covers two tasks:
+        <strong>Generation</strong> (text → ASCII art),
+        <strong>Understanding</strong> (ASCII art → description / label),
+        Generation uses SA / IF / SC / SL / CE and a weighted composite score on Recall (in-distribution) and Generalization (OOD) splits.
+      </p>
+
+      <div class="grid-2 benchmark-grid">
+        <div class="panel img-card">
+          <img src="assets/benchmark_results.png" alt="Benchmark results" class="zoomable" />
+        </div>
+
+        <div class="panel">
+          <div style="text-align:left; font-weight: 950; margin-bottom: 10px;">Quick Start</div>
+          <pre><code># Clone & download benchmark from HF
+cd SVE-ASCII/benchmark
+
+# Generation
+python eval_generation.py
+
+# Understanding
+python eval_understanding.py
+
+# Understanding-Selection
+python eval_understanding_selection.py
+</code></pre>
+          <div class="note" style="text-align:left;">
+            Set <code>MODEL_TYPE</code>, API keys, etc. See <code>benchmark/README.md</code>.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESOURCES -->
+    <section class="section" id="resources">
+      <div class="h2"><span class="bar"></span>Resources</div>
+
+      <div class="grid-2 resources-grid">
+        <div class="panel2">
+          <div style="text-align:left; font-weight: 950; margin-bottom: 10px;">Links</div>
+          <div class="keylinks">
+            <div class="krow">
+              <div class="kleft">
+                <div class="kicon">🤗</div>
+                <div class="kmeta">Model <span class="small">SVE-ASCII-7B</span></div>
+              </div>
+              <a class="kbtn" href="https://huggingface.co/SVE-ASCII/SVE-ASCII-7B" target="_blank" rel="noopener">Open ↗</a>
+            </div>
+            <div class="krow">
+              <div class="kleft">
+                <div class="kicon">📚</div>
+                <div class="kmeta">Dataset <span class="small">SVE-ASCII-Dataset</span></div>
+              </div>
+              <a class="kbtn" href="https://huggingface.co/SVE-ASCII/SVE-ASCII-Dataset" target="_blank" rel="noopener">Open ↗</a>
+            </div>
+            <div class="krow">
+              <div class="kleft">
+                <div class="kicon">📊</div>
+                <div class="kmeta">Benchmark <span class="small">SVE-ASCII-Bench</span></div>
+              </div>
+              <a class="kbtn" href="https://huggingface.co/SVE-ASCII/SVE-ASCII-Bench" target="_blank" rel="noopener">Open ↗</a>
+            </div>
+            <div class="krow">
+              <div class="kleft">
+                <div class="kicon">💻</div>
+                <div class="kmeta">Code <span class="small">evaluation + synthesis</span></div>
+              </div>
+              <a class="kbtn" href="https://github.com/SVE-ASCII/SVE-ASCII" target="_blank" rel="noopener">Repo ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" id="citation">
+          <div style="text-align:left; font-weight: 950; margin-bottom: 10px;">Citation</div>
+          <details open>
+            <summary>BibTeX</summary>
+            <div style="height:10px;"></div>
+            <pre><code>@article{yourname2026sveascii,
+  title={Unlocking the Latent Canvas: Eliciting and Benchmarking Symbolic Visual Expression in LLMs},
+  author={Your Name and Others},
+  journal={arXiv preprint arXiv:XXXX.XXXXX},
+  year={2026}
+}</code></pre>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <strong>SVE-ASCII</strong> · Project homepage (GitHub Pages).  
+      <br />
+      For implementation details, see the GitHub repository.
+    </div>
+  </div>
+
+  <!-- Back to top -->
+  <button class="to-top" id="toTop" aria-label="Back to top" title="Back to top">↑</button>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="hint">Click anywhere to close · Esc</div>
+    <img id="lightboxImg" alt="Zoomed image" />
+  </div>
+
+  <script>
+    // Back-to-top button
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) toTop.classList.add('show');
+      else toTop.classList.remove('show');
+    });
+    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Lightbox for zoomable images
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+
+    document.querySelectorAll('.zoomable').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('show');
+      });
+    });
+
+    function closeLightbox(){
+      lightbox.classList.remove('show');
+      lightboxImg.src = '';
+    }
+    lightbox.addEventListener('click', closeLightbox);
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+</body>
+</html>
